@@ -1,0 +1,68 @@
+<!-- core/templates/core/about.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Us - NeoMed Healthcare{% endblock %}
+
+{% block content %}
+<!-- Page Header Section -->
+<section class="bg-primary-dark text-white">
+    <div class="container mx-auto px-6 py-16 text-center">
+        <h1 class="text-4xl lg:text-5xl font-extrabold">About NeoMed Healthcare</h1>
+        <p class="mt-4 text-lg text-purple-200">Redefining diagnostics with precision and trust.</p>
+    </div>
+</section>
+
+<!-- Main Content Section -->
+<div class="bg-white py-16 lg:py-24">
+    <div class="container mx-auto px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            
+            <!-- Our Mission Section -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Mission</h2>
+                <div class="prose max-w-none text-gray-600 leading-relaxed">
+                    <p>
+                        Our mission is to empower individuals and organizations with safe, secure, and private medical testing experiences. By leveraging AI-driven support and partnering with certified laboratories, we provide fast, private, and stress-free diagnostics. We believe that access to clear and confidential health information is a fundamental right, and we are dedicated to making healthcare smarter, safer, and more accessible for everyone.
+                    </p>
+                </div>
+            </div>
+
+            <!-- How It Works Section -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
+                <ol class="list-decimal list-inside prose max-w-none text-gray-600 leading-relaxed space-y-2">
+                    <li><strong>Browse & Choose:</strong> Simply browse through our available tests or filter by category to find what you need.</li>
+                    <li><strong>Book Your Way:</strong> Choose to book using a regular account or select our anonymous mode, where only your age and gender are required.</li>
+                    <li><strong>Get Your Code:</strong> After payment, you'll receive a unique, confidential code. No paperwork needed.</li>
+                    <li><strong>Sample Collection:</strong> Take your code to the nearest partner lab for a quick and seamless sample collection.</li>
+                    <li><strong>View Results Securely:</strong> Once your results are ready, log in or use your unique code to view them securely online.</li>
+                </ol>
+            </div>
+            
+            <!-- Our Values Section -->
+            <div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Our Core Values</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <!-- Value 1: Privacy -->
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-semibold text-lg text-primary-main">Privacy & Confidentiality</h3>
+                        <p class="mt-2 text-sm text-gray-600">Your health data is yours alone. We ensure end-to-end security and offer fully anonymous options.</p>
+                    </div>
+                    <!-- Value 2: Accuracy -->
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-semibold text-lg text-primary-main">Accuracy & Reliability</h3>
+                        <p class="mt-2 text-sm text-gray-600">We partner exclusively with certified laboratories to guarantee the highest standards of precision.</p>
+                    </div>
+                    <!-- Value 3: Accessibility -->
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-semibold text-lg text-primary-main">Simplicity & Accessibility</h3>
+                        <p class="mt-2 text-sm text-gray-600">From booking to results, our platform is designed to be intuitive and stress-free for everyone.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

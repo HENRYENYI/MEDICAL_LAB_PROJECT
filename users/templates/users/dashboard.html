@@ -1,0 +1,62 @@
+<!-- users/templates/users/dashboard.html -->
+{% extends "base.html" %}
+{% block title %}Your Dashboard - NeoMed Healthcare{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 py-12 lg:py-16">
+    <div class="container mx-auto px-6 lg:px-8">
+        <!-- Page Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-gray-200 pb-6 mb-8">
+            <div>
+                <h1 class="text-3xl font-extrabold text-gray-900">Welcome, {{ user.first_name|default:user.username }}!</h1>
+                <p class="mt-1 text-gray-600">Here's an overview of your testing history.</p>
+            </div>
+            <a href="{% url 'users:logout' %}" class="mt-4 sm:mt-0 text-sm font-medium text-red-600 hover:text-red-800">Log Out</a>
+        </div>
+
+        <!-- Pending Tests Section -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Pending Test Results</h2>
+            <div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                <ul class="divide-y divide-gray-200">
+                    {% for booking in pending_bookings %}
+                    <li class="p-4 sm:p-6 flex items-center justify-between">
+                        <div>
+                            <p class="font-semibold text-gray-800">Booking Code: <span class="font-mono">{{ booking.booking_code }}</span></p>
+                            <p class="text-sm text-gray-500">Booked on: {{ booking.created_at|date:"F d, Y" }}</p>
+                        </div>
+                        <span class="text-sm font-semibold text-yellow-800 bg-yellow-100 py-1 px-3 rounded-full">{{ booking.get_status_display }}</span>
+                    </li>
+                    {% empty %}
+                    <li class="p-6 text-center text-gray-500">You have no pending tests.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+
+        <!-- Completed Tests Section -->
+        <section>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Completed Tests</h2>
+             <div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                <ul class="divide-y divide-gray-200">
+                    {% for booking in completed_bookings %}
+                    <li class="p-4 sm:p-6 flex items-center justify-between">
+                        <div>
+                            <p class="font-semibold text-gray-800">Booking Code: <span class="font-mono">{{ booking.booking_code }}</span></p>
+                            <p class="text-sm text-gray-500">Completed on: {{ booking.updated_at|date:"F d, Y" }}</p>
+                        </div>
+                        {% if booking.result_file %}
+                        <a href="{{ booking.result_file.url }}" target="_blank" class="text-sm font-semibold text-green-800 bg-green-100 hover:bg-green-200 py-2 px-4 rounded-full">Download Result</a>
+                        {% else %}
+                        <span class="text-sm text-gray-500">Result unavailable</span>
+                        {% endif %}
+                    </li>
+                    {% empty %}
+                    <li class="p-6 text-center text-gray-500">You have no completed test results yet.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ page_title }} - NeoMed Healthcare{% endblock %}
+
+{% block content %}
+<div class="bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+
+        <!-- Page Header -->
+        <div class="text-left mb-8">
+            <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900">{{ page_title }}</h1>
+            <p class="mt-2 text-base text-gray-600">
+                {% if 'Anonymous' in page_title %}
+                    {{ individual_tests|length }} items
+                {% else %}
+                    {{ individual_tests|length|add:packages|length }} items
+                {% endif %}
+            </p>
+        </div>
+
+        <!-- Filter/Sort Bar (Placeholder) -->
+        <div class="flex items-center justify-between border-t border-b border-gray-200 py-4 mb-8">
+            <!-- This is static for now, we can make it dynamic later -->
+            <div class="flex space-x-2 overflow-x-auto no-scrollbar">
+                <button class="bg-gray-100 text-gray-600 font-semibold py-2 px-4 rounded-full text-sm hover:bg-gray-200">Health Profiles</button>
+            </div>
+            <button class="flex-shrink-0 flex items-center gap-2 border border-gray-300 font-semibold py-2 px-4 rounded-full text-sm hover:bg-gray-100">
+                Filters & Sort
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </button>
+        </div>
+
+        <!-- Start: Main Content Grid -->
+
+        {% if 'Anonymous' in page_title %}
+            <!-- ===== DISPLAY FOR ANONYMOUS PAGE ===== -->
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Available Anonymous Tests</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {% for test in individual_tests %}
+                    {% include "tests/partials/test_card.html" %}
+                {% empty %}
+                    <p class="md:col-span-4 text-center text-gray-500 py-12">No anonymous tests are available at the moment.</p>
+                {% endfor %}
+            </div>
+
+        {% else %}
+            <!-- ===== DISPLAY FOR ALL TESTS PAGE ===== -->
+
+            <!-- Health Packages Section -->
+            {% if packages %}
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Health Packages</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {% for package in packages %}
+                        {% include "tests/partials/package_card.html" %}
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Individual Tests Section -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Individual Tests</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {% for test in individual_tests %}
+                        {% include "tests/partials/test_card.html" %}
+                    {% empty %}
+                        <p class="md:col-span-4 text-center text-gray-500 py-12">No individual tests are available at the moment.</p>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+        <!-- End: Main Content Grid -->
+
+    </div>
+</div>
+{% endblock content %}

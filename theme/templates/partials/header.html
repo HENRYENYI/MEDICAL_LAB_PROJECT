@@ -1,0 +1,64 @@
+<header class="bg-white shadow-sm sticky top-0 z-50" x-data="{ mobileMenuOpen: false }">
+    <div class="container mx-auto px-4 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+            <!-- Logo -->
+            <a href="{% url 'home' %}" class="text-2xl font-bold text-primary-main">NeoMed<span class="font-medium">Healthcare</span></a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center space-x-8">
+                <a href="{% url 'about' %}" class="text-gray-600 hover:text-primary-main">About</a>
+                <a href="{% url 'tests:test_list' %}" class="text-gray-600 hover:text-primary-main">All Test</a>
+                <a href="#" class="text-gray-600 hover:text-primary-main">Test by Category</a>
+                <a href="{% url 'tests:anonymous_test_list' %}" class="text-gray-600 hover:text-primary-main">Anonymous Test</a>
+            </nav>
+
+            <!-- Icons & Actions -->
+            <div class="flex items-center space-x-4">
+                <a href="{% url 'consultation:consultation_home' %}" class="hidden sm:inline-block text-sm font-semibold text-gray-700 bg-gray-100 px-4 py-2 rounded-full hover:bg-gray-200">Consultation</a>
+                <a href="{% url 'bookings:check_result' %}" class="hidden sm:inline-block text-sm font-semibold text-gray-700 bg-gray-100 px-4 py-2 rounded-full hover:bg-gray-200">Check Result</a>
+                <button class="text-gray-600 hover:text-primary-main">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                </button>
+
+                <!-- Dynamic Cart Icon -->
+                <a href="{% url 'bookings:cart_detail' %}" class="relative text-gray-600 hover:text-primary-main">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                    {% if cart|length > 0 %}
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                        {{ cart|length }}
+                    </span>
+                    {% endif %}
+                </a>
+
+                <!-- START: Dynamic User Icon -->
+                {% if user.is_authenticated %}
+                    <!-- If user is logged in, show link to dashboard -->
+                    <a href="{% url 'users:dashboard' %}" class="text-gray-600 hover:text-primary-main" title="Your Dashboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                    </a>
+                {% else %}
+                    <!-- If user is logged out, show link to login page -->
+                    <a href="{% url 'users:login' %}" class="text-gray-600 hover:text-primary-main" title="Log In / Register">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h12m-2 4v-4m3 4v-4M15 8V4a2 2 0 00-2-2H5a2 2 0 00-2 2v16a2 2 0 002 2h8a2 2 0 002-2v-4" /></svg>
+                    </a>
+                {% endif %}
+                <!-- END: Dynamic User Icon -->
+
+                 <!-- Mobile Menu Button -->
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden text-gray-600 hover:text-primary-main">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Menu Panel -->
+    <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" class="lg:hidden" x-transition>
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="{% url 'about' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-main hover:bg-gray-50">About</a>
+            <a href="{% url 'tests:test_list' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-main hover:bg-gray-50">All Test</a>
+            <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-main hover:bg-gray-50">Test by Category</a>
+            <a href="{% url 'tests:anonymous_test_list' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-main hover:bg-gray-50">Anonymous Test</a>
+            <a href="{% url 'bookings:check_result' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-main hover:bg-gray-50">Check Result</a>
+        </div>
+    </div>
+</header>

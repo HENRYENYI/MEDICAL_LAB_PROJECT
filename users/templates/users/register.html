@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Create Account - NeoMed Healthcare{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 py-12 lg:py-24 flex items-center justify-center min-h-screen">
+    <div class="max-w-md w-full space-y-8 p-10 bg-white shadow-lg rounded-xl">
+        <div>
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                Create a new account
+            </h2>
+        </div>
+        <form class="mt-8 space-y-6" method="POST">
+            {% csrf_token %}
+            
+            <!-- This is a hidden field that tells Django where to redirect after a successful login -->
+            <input type="hidden" name="next" value="{{ next }}">
+
+            <div class="rounded-md shadow-sm space-y-4">
+                
+                <!-- Render each field manually for better styling -->
+                {% for field in form %}
+                <div>
+                    <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ field.label }}</label>
+                    <input 
+                        type="{{ field.field.widget.input_type }}" 
+                        name="{{ field.name }}" 
+                        id="{{ field.id_for_label }}" 
+                        required 
+                        class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary-main focus:border-primary-main"
+                    >
+                    {% if field.help_text %}
+                        <p class="mt-1 text-xs text-gray-500">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p class="mt-1 text-xs text-red-500">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+
+                <!-- Display non-field errors (e.g., "passwords don't match") -->
+                {% for error in form.non_field_errors %}
+                    <p class="mt-1 text-sm text-red-500 text-center">{{ error }}</p>
+                {% endfor %}
+
+            </div>
+
+            <div>
+                <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-button hover:bg-purple-800">
+                    Register
+                </button>
+            </div>
+             <p class="mt-2 text-center text-sm text-gray-600">
+                Already have an account?
+                <a href="{% url 'users:login' %}" class="font-medium text-primary-main hover:text-purple-900">
+                  Sign in
+                </a>
+              </p>
+        </form>
+    </div>
+</div>
+{% endblock %}

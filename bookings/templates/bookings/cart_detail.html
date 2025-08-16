@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Your Shopping Cart - NeoMed Healthcare{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 py-12 lg:py-16">
+    <div class="container mx-auto px-6 lg:px-8">
+        <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-8">Your Shopping Cart</h1>
+
+        {% if cart|length > 0 %}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Cart Items -->
+            <div class="lg:col-span-2 bg-white border border-gray-200 rounded-lg shadow-sm">
+                <ul class="divide-y divide-gray-200">
+                    {% for item in cart %}
+                    <li class="p-6 flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">{{ item.name }}</h3>
+                            <span class="text-sm text-gray-500 capitalize">{{ item.type }}</span>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-lg font-bold text-gray-900">₦{{ item.price|floatformat:0 }}</p>
+                            <a href="#" class="text-sm text-red-500 hover:text-red-700 hover:underline">Remove</a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="lg:col-span-1">
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 sticky top-28">
+                    <h2 class="text-xl font-bold text-gray-800 border-b pb-4">Order Summary</h2>
+                    <div class="py-4 space-y-2 text-gray-600">
+                        <div class="flex justify-between">
+                            <span>Subtotal</span>
+                            <span>₦{{ cart.get_total_price|floatformat:0 }}</span>
+                        </div>
+                         <div class="flex justify-between">
+                            <span>Fees</span>
+                            <span>₦0</span>
+                        </div>
+                    </div>
+                    <div class="border-t pt-4 flex justify-between font-bold text-gray-900">
+                        <span>Total</span>
+                        <span>₦{{ cart.get_total_price|floatformat:0 }}</span>
+                    </div>
+                    <a href="{% url 'bookings:checkout' %}" class="mt-6 w-full block text-center bg-primary-button hover:bg-purple-800 text-white font-semibold py-3 px-6 rounded-full transition duration-300 text-lg">
+    Proceed to Checkout
+</a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="text-center bg-white border border-gray-200 rounded-lg p-12">
+            <h2 class="text-2xl font-bold text-gray-800">Your cart is empty.</h2>
+            <p class="mt-2 text-gray-600">Browse our tests to find the right one for you.</p>
+            <a href="{% url 'tests:test_list' %}" class="mt-6 inline-block bg-primary-main hover:bg-purple-900 text-white font-semibold py-3 px-8 rounded-full transition duration-300">Shop All Tests</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

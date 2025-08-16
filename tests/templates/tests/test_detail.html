@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ test.name }} - NeoMed Healthcare{% endblock %}
+
+{% block content %}
+<div class="bg-white">
+    <div class="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+
+        <!-- Main Content Area -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+
+            <!-- Left Column (Main Info) -->
+            <div class="md:col-span-2">
+                <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">{{ test.name }}</h1>
+
+                <!-- Short Description with "Read More" -->
+                <div class="mt-4 text-gray-600 leading-relaxed" x-data="{ expanded: false }">
+                    <p :class="expanded ? '' : 'line-clamp-5'">
+                        {{ test.short_description }}
+                        {% if test.long_description %}
+                            <span x-show="expanded">{{ test.long_description|linebreaksbr }}</span>
+                        {% endif %}
+                    </p>
+                    {% if test.long_description|length > test.short_description|length %}
+                        <button @click="expanded = !expanded" class="text-primary-main font-semibold hover:underline mt-1" x-text="expanded ? 'Read less' : 'Read more'"></button>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Right Column (Price & Action) -->
+            <div class="md:col-span-1">
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 sticky top-28">
+                    <p class="text-4xl font-extrabold text-primary-main">₦{{ test.price|floatformat:0 }}</p>
+                    <p class="text-sm text-gray-500 mt-1">+ Additional physician service fee may apply</p>
+                    
+                    <!-- START: Updated "Add to Cart" Form -->
+                    <form action="{% url 'bookings:cart_add' item_type='test' item_id=test.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="mt-6 w-full block text-center bg-primary-button hover:bg-purple-800 text-white font-semibold py-3 px-8 rounded-full transition duration-300 text-lg">
+                            Add to Cart
+                        </button>
+                    </form>
+                    <!-- END: Updated "Add to Cart" Form -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Details List & About the Test Section -->
+        <div class="mt-12 lg:mt-16 border-t border-gray-200 pt-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Details List -->
+                <div class="md:col-span-1">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Test Details</h2>
+                    <dl class="space-y-4">
+                        <div>
+                            <dt class="font-semibold text-gray-900">Sample type:</dt>
+                            <dd class="text-gray-600">{{ test.sample_type|default:"N/A" }}</dd>
+                        </div>
+                        <div>
+                            <dt class="font-semibold text-gray-900">Preparation:</dt>
+                            <dd class="text-gray-600">{{ test.preparation|default:"No special preparation is required." }}</dd>
+                        </div>
+                        <div>
+                            <dt class="font-semibold text-gray-900">Test type:</dt>
+                            <dd class="text-gray-600">{{ test.test_type|default:"In Person" }}</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- About the Test -->
+                {% if test.long_description %}
+                <div class="md:col-span-2">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">About the test</h2>
+                    <div class="prose max-w-none text-gray-600">
+                        {{ test.long_description|linebreaks }}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

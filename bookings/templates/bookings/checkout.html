@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Checkout - NeoMed Healthcare{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 py-12 lg:py-16">
+    <div class="container mx-auto max-w-5xl px-6 lg:px-8">
+        <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-8 text-center">Checkout</h1>
+
+        <!-- This is now one single form -->
+        <form action="{% url 'bookings:checkout' %}" method="POST">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
+
+                <!-- Left side: Form for user details -->
+                <div class="lg:col-span-3 bg-white border border-gray-200 rounded-lg p-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Your Information</h2>
+                    
+                    <div class="space-y-4">
+                        <!-- Login/Register section remains the same for now -->
+                        <div class="border rounded-lg p-4">
+                            <h3 class="font-semibold">Returning Customer?</h3>
+                            <a href="#" class="text-primary-main hover:underline">Click here to login</a>
+                        </div>
+                        <div class="text-center my-4"><span class="text-gray-500">OR</span></div>
+
+                        <div>
+                            <h3 class="font-semibold mb-2">Checkout as Guest (Anonymous)</h3>
+                            <p class="text-sm text-gray-600 mb-4">Your name will not be associated with the test. We only need your age and gender for the lab.</p>
+                            
+                            <!-- Render the Django form -->
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="id_age" class="block text-sm font-medium text-gray-700">Age</label>
+                                    {{ form.age }}
+                                </div>
+                                <div>
+                                    <label for="id_gender" class="block text-sm font-medium text-gray-700">Gender</label>
+                                    {{ form.gender }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right side: Order Summary -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 sticky top-28">
+                        <h2 class="text-xl font-bold text-gray-800 border-b pb-4 mb-4">Your Order</h2>
+                        <ul class="divide-y divide-gray-200">
+                            {% for item in cart %}
+                            <li class="py-3 flex items-center justify-between">
+                                <div>
+                                    <p class="font-semibold text-gray-800">{{ item.name }}</p>
+                                    <p class="text-sm text-gray-500 capitalize">{{ item.type }}</p>
+                                </div>
+                                <p class="font-semibold text-gray-900">₦{{ item.price|floatformat:0 }}</p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="border-t mt-4 pt-4 flex justify-between font-bold text-gray-900 text-lg">
+                            <span>Order Total</span>
+                            <span>₦{{ cart.get_total_price|floatformat:0 }}</span>
+                        </div>
+                        
+                        <!-- This button now submits the whole form -->
+                        <button type="submit" class="mt-6 w-full block text-center bg-primary-button hover:bg-purple-800 text-white font-semibold py-3 px-6 rounded-full transition duration-300 text-lg">
+                            Place Order & Pay
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

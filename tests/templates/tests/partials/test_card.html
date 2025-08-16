@@ -1,0 +1,18 @@
+<div class="group relative bg-white border border-gray-200 rounded-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+    <a href="{% url 'tests:test_detail' pk=test.pk %}" class="block p-6 flex-grow">
+        {% if test.is_best_seller %}
+        <span class="inline-block bg-purple-100 text-primary-main text-xs font-semibold mb-3 px-2.5 py-1 rounded-full">Best Seller</span>
+        {% endif %}
+        <h3 class="text-lg font-bold text-gray-900 group-hover:text-primary-main">{{ test.name }}</h3>
+        <p class="mt-2 text-sm text-gray-600">{{ test.short_description }}</p>
+    </a>
+    <div class="px-6 pb-6 flex items-end justify-between">
+        <span class="text-xl font-extrabold text-gray-900">₦{{ test.price|floatformat:0 }}</span>
+        <form action="{% url 'bookings:cart_add' item_type='test' item_id=test.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="bg-primary-main text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" title="Add to cart">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M4 12h16" /></svg>
+            </button>
+        </form>
+    </div>
+</div>
