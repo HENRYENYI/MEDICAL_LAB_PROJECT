@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Health Profile - NeoMed Healthcare{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 py-12 lg:py-16">
+    <div class="container mx-auto max-w-3xl px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-8">Health Profile</h1>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+                        {{ form.date_of_birth }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                        {{ form.gender }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Blood Type</label>
+                        {{ form.blood_type }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Height (cm)</label>
+                        {{ form.height }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Weight (kg)</label>
+                        {{ form.weight }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Emergency Contact</label>
+                        {{ form.emergency_contact }}
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Emergency Phone</label>
+                        {{ form.emergency_phone }}
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Allergies</label>
+                        {{ form.allergies }}
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Current Medications</label>
+                        {{ form.medications }}
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Medical Conditions</label>
+                        {{ form.medical_conditions }}
+                    </div>
+                </div>
+                
+                <div class="flex justify-between mt-8">
+                    <a href="{% url 'users:dashboard' %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-6 rounded-full">
+                        Back to Dashboard
+                    </a>
+                    <button type="submit" class="bg-primary-main hover:bg-purple-900 text-white font-semibold py-2 px-6 rounded-full">
+                        Save Profile
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

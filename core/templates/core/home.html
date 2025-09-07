@@ -111,4 +111,63 @@
         </div>
     </div>
 </section>
+
+<!-- ======== AVAILABLE TESTS SECTION ======== -->
+<section class="py-16 lg:py-24 bg-gray-50">
+    <div class="container mx-auto px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-800">Available Lab Tests</h2>
+            <p class="mt-4 text-gray-600 max-w-3xl mx-auto">Explore our comprehensive range of laboratory tests designed to help you monitor and maintain your health.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {% for test in all_tests|slice:":10" %}
+            <div class="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 p-6">
+                <div class="flex items-start justify-between mb-3">
+                    <h3 class="text-lg font-semibold text-gray-800 line-clamp-2">{{ test.name }}</h3>
+                    {% if test.is_best_seller %}
+                    <span class="bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded-full">Best Seller</span>
+                    {% endif %}
+                </div>
+                
+                <p class="text-gray-600 text-sm mb-4 line-clamp-3">{{ test.short_description|default:"Professional lab test for accurate health assessment." }}</p>
+                
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-2xl font-bold text-primary-main">₦{{ test.price|floatformat:0 }}</span>
+                    {% if test.category %}
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">{{ test.category.name }}</span>
+                    {% endif %}
+                </div>
+                
+                <div class="flex space-x-2">
+                    <a href="{% url 'tests:test_detail' test.pk %}" 
+                       class="flex-1 text-center bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-full text-sm transition duration-300">
+                        View Details
+                    </a>
+                    <form method="post" action="{% url 'bookings:cart_add' 'test' test.id %}" class="flex-1">
+                        {% csrf_token %}
+                        <button type="submit" 
+                                class="w-full bg-primary-main hover:bg-purple-900 text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300">
+                            Add to Cart
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+                <p class="text-gray-500 text-lg">No tests available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if all_tests|length > 10 %}
+        <div class="text-center mt-12">
+            <a href="{% url 'tests:test_list' %}" 
+               class="inline-block bg-primary-main hover:bg-purple-900 text-white font-semibold py-3 px-8 rounded-full transition duration-300">
+                View All Available Tests
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
 {% endblock content %}

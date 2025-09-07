@@ -8,7 +8,7 @@
             <nav class="hidden lg:flex items-center space-x-8">
                 <a href="{% url 'about' %}" class="text-gray-600 hover:text-primary-main">About</a>
                 <a href="{% url 'tests:test_list' %}" class="text-gray-600 hover:text-primary-main">All Test</a>
-                <a href="#" class="text-gray-600 hover:text-primary-main">Test by Category</a>
+                <a href="{% url 'tests:category_list' %}" class="text-gray-600 hover:text-primary-main">Test by Category</a>
                 <a href="{% url 'tests:anonymous_test_list' %}" class="text-gray-600 hover:text-primary-main">Anonymous Test</a>
             </nav>
 
@@ -56,7 +56,7 @@
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a href="{% url 'about' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-main hover:bg-gray-50">About</a>
             <a href="{% url 'tests:test_list' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-main hover:bg-gray-50">All Test</a>
-            <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-main hover:bg-gray-50">Test by Category</a>
+            <a href="{% url 'tests:category_list' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-main hover:bg-gray-50">Test by Category</a>
             <a href="{% url 'tests:anonymous_test_list' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-main hover:bg-gray-50">Anonymous Test</a>
             <a href="{% url 'bookings:check_result' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-main hover:bg-gray-50">Check Result</a>
         </div>

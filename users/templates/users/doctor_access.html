@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Doctor Access - NeoMed Healthcare{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 py-12 lg:py-16">
+    <div class="container mx-auto max-w-5xl px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-2">Patient Medical Records</h1>
+            <p class="text-gray-600 mb-8">
+                Access granted for: {{ access_code.user.get_full_name|default:access_code.user.username }}
+                {% if access_code.doctor_name %} | Requested by: {{ access_code.doctor_name }}{% endif %}
+            </p>
+            
+            <!-- Health Profile -->
+            {% if health_profile %}
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Health Profile</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-700">Basic Info</h3>
+                        <p class="text-sm text-gray-600 mt-2">
+                            {% if health_profile.date_of_birth %}DOB: {{ health_profile.date_of_birth|date:"F d, Y" }}<br>{% endif %}
+                            {% if health_profile.gender %}Gender: {{ health_profile.gender }}<br>{% endif %}
+                            {% if health_profile.blood_type %}Blood Type: {{ health_profile.blood_type }}{% endif %}
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-700">Physical</h3>
+                        <p class="text-sm text-gray-600 mt-2">
+                            {% if health_profile.height %}Height: {{ health_profile.height }} cm<br>{% endif %}
+                            {% if health_profile.weight %}Weight: {{ health_profile.weight }} kg{% endif %}
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-700">Emergency Contact</h3>
+                        <p class="text-sm text-gray-600 mt-2">
+                            {% if health_profile.emergency_contact %}{{ health_profile.emergency_contact }}<br>{% endif %}
+                            {% if health_profile.emergency_phone %}{{ health_profile.emergency_phone }}{% endif %}
+                        </p>
+                    </div>
+                    {% if health_profile.allergies %}
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-red-700">Allergies</h3>
+                        <p class="text-sm text-red-600 mt-2">{{ health_profile.allergies }}</p>
+                    </div>
+                    {% endif %}
+                    {% if health_profile.medications %}
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-blue-700">Current Medications</h3>
+                        <p class="text-sm text-blue-600 mt-2">{{ health_profile.medications }}</p>
+                    </div>
+                    {% endif %}
+                    {% if health_profile.medical_conditions %}
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-yellow-700">Medical Conditions</h3>
+                        <p class="text-sm text-yellow-600 mt-2">{{ health_profile.medical_conditions }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </section>
+            {% endif %}
+            
+            <!-- Lab Results -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Lab Results</h2>
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                    <ul class="divide-y divide-gray-200">
+                        {% for booking in user_bookings %}
+                        <li class="p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-semibold text-gray-800">Booking: {{ booking.booking_code }}</p>
+                                    <p class="text-sm text-gray-500">Date: {{ booking.created_at|date:"F d, Y" }}</p>
+                                    <p class="text-sm text-gray-600">
+                                        Tests: 
+                                        {% for test in booking.tests.all %}
+                                            {{ test.name }}{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                        {% if booking.package %}{{ booking.package.name }}{% endif %}
+                                    </p>
+                                </div>
+                                {% if booking.result_file %}
+                                <a href="{{ booking.result_file.url }}" target="_blank" 
+                                   class="bg-primary-main hover:bg-purple-900 text-white font-semibold py-2 px-4 rounded-full text-sm">
+                                    View Result
+                                </a>
+                                {% else %}
+                                <span class="text-sm text-gray-500">Result pending</span>
+                                {% endif %}
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li class="p-6 text-center text-gray-500">No lab results available.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+            
+            <div class="mt-8 text-center">
+                <p class="text-sm text-gray-500">
+                    This access expires on {{ access_code.expires_at|date:"F d, Y" }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

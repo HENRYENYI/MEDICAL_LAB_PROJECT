@@ -54,3 +54,28 @@ def anonymous_test_list_view(request):
     
     # We cleverly reuse the same template as the main test list page.
     return render(request, 'tests/test_list.html', context)
+
+def category_list_view(request):
+    """
+    Displays all test categories.
+    """
+    categories = TestCategory.objects.all().order_by('name')
+    context = {
+        'categories': categories,
+    }
+    return render(request, 'tests/category_list.html', context)
+
+def category_detail_view(request, pk):
+    """
+    Displays tests in a specific category.
+    """
+    category = get_object_or_404(TestCategory, pk=pk)
+    tests = LabTest.objects.filter(category=category, is_available=True).order_by('name')
+    
+    context = {
+        'category': category,
+        'individual_tests': tests,
+        'packages': [],  # Empty for now, can add package filtering later
+        'page_title': f'{category.name} Tests',
+    }
+    return render(request, 'tests/test_list.html', context)

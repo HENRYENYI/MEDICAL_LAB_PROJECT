@@ -11,10 +11,10 @@ admin.site.register(TestPackage)
 @admin.register(LabTest)
 class LabTestAdmin(admin.ModelAdmin):
     # How the list of tests will look
-    list_display = ('name', 'category', 'price', 'is_available', 'is_best_seller')
-    list_filter = ('category', 'is_available', 'is_best_seller')
+    list_display = ('name', 'category', 'price', 'is_available', 'is_best_seller', 'is_anonymous')
+    list_filter = ('category', 'is_available', 'is_best_seller', 'is_anonymous')
     search_fields = ('name', 'short_description')
-    list_editable = ('price', 'is_available', 'is_best_seller')
+    list_editable = ('price', 'is_available', 'is_best_seller', 'is_anonymous')
 
     # Organize the fields on the "Add/Edit Test" page into logical groups
     fieldsets = (
@@ -28,6 +28,6 @@ class LabTestAdmin(admin.ModelAdmin):
             'fields': ('sample_type', 'preparation', 'test_type', 'turnaround_time')
         }),
         ('Status & Visibility', {
-            'fields': ('is_available', 'is_best_seller')
+            'fields': ('is_available', 'is_best_seller', 'is_anonymous')
         }),
     )
