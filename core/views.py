@@ -10,12 +10,20 @@ def home(request):
     categories = TestCategory.objects.filter(labtest__is_available=True).distinct()
     all_tests = LabTest.objects.filter(is_available=True)
     packages = TestPackage.objects.filter(is_available=True)
+    
+    # Get featured blog posts
+    try:
+        from blog.models import BlogPost
+        featured_articles = BlogPost.objects.filter(status='published', is_featured=True)[:3]
+    except:
+        featured_articles = []
 
     # Create a context dictionary to pass the data to the template
     context = {
         'categories': categories,
         'all_tests': all_tests,
         'packages': packages,
+        'featured_articles': featured_articles,
     }
     
     # Render the HTML template with the data

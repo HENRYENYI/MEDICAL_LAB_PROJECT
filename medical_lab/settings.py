@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*_b3e)%%j=7o$)+th57(vu8qwo5+@c#0tq+8ha)v*wn9oififu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*', 'henryenyi.pythonanywhere.com']
 
@@ -132,6 +132,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'theme/static'),
+    os.path.join(BASE_DIR, 'django/contrib/admin/static'),  # Add this line
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
