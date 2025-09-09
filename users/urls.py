@@ -12,6 +12,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('dashboard/', views.dashboard_view, name='dashboard'),
     path('health-profile/', views.health_profile_view, name='health_profile'),
+    path('health-profile-setup/', views.health_profile_setup, name='health_profile_setup'),
     path('generate-doctor-code/', views.generate_doctor_code, name='generate_doctor_code'),
     path('doctor-access/<str:code>/', views.doctor_access_view, name='doctor_access'),
 ]

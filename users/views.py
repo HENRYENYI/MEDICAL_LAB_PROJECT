@@ -15,10 +15,13 @@ def register_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}! You can now log in.')
-            return redirect('users:login')
+            messages.success(request, f'Account created for {username}! Please complete your health profile.')
+            # Log the user in automatically
+            from django.contrib.auth import login
+            login(request, user)
+            return redirect('users:health_profile_setup')
     else:
         form = CustomUserCreationForm()
     return render(request, 'users/register.html', {'form': form})
@@ -63,6 +66,22 @@ def health_profile_view(request):
         form = HealthProfileForm(instance=profile)
     
     return render(request, 'users/health_profile.html', {'form': form})
+
+@login_required
+def health_profile_setup(request):
+    """Initial health profile setup after registration"""
+    profile, created = HealthProfile.objects.get_or_create(user=request.user)
+    
+    if request.method == 'POST':
+        form = HealthProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Welcome! Your health profile has been created.')
+            return redirect('users:dashboard')
+    else:
+        form = HealthProfileForm(instance=profile)
+    
+    return render(request, 'users/health_profile_setup.html', {'form': form})
 
 @login_required
 def generate_doctor_code(request):

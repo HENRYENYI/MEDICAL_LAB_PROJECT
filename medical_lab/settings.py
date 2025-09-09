@@ -17,12 +17,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*_b3e)%%j=7o$)+th57(vu8qwo5+@c#0tq+8ha)v*wn9oififu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# --- CRITICAL CHANGE 1: Set DEBUG to False for production ---
 DEBUG = False
 
-# --- CRITICAL CHANGE 2: Set ALLOWED_HOSTS to your PythonAnywhere domain ---
-ALLOWED_HOSTS = ['yourusername.pythonanywhere.com'] # Replace with your actual PA domain
-# ALLOWED_HOSTS = ['yourusername.pythonanywhere.com', 'www.yourcustomdomain.com'] # If you add a custom domain later
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*', 'henryenyi.pythonanywhere.com']
 
 
 # Application definition
@@ -32,6 +29,8 @@ INSTALLED_APPS = [
     'tests',
     'bookings',
     'consultation',
+    'ai_doctor',
+    'blog',
 
     'core.apps.CoreConfig',
     'django.contrib.admin',
@@ -155,6 +154,7 @@ CART_SESSION_ID = 'cart'
 
 LOGIN_REDIRECT_URL = 'users:dashboard'
 LOGIN_URL = 'users:login'
+LOGOUT_REDIRECT_URL = 'home'
 
 
 TAILWIND_APP_NAME = 'theme'

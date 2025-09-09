@@ -4,15 +4,36 @@ from .models import LabTest, TestPackage, TestCategory
 
 def test_list_view(request):
     """
-    Displays all available tests and packages.
+    Displays all available tests and packages with search functionality.
     """
-    individual_tests = LabTest.objects.filter(is_available=True).order_by('name')
-    packages = TestPackage.objects.filter(is_available=True).order_by('name')
+    query = request.GET.get('q', '').strip()
+    
+    individual_tests = LabTest.objects.filter(is_available=True)
+    packages = TestPackage.objects.filter(is_available=True)
+    
+    if query:
+        from django.db.models import Q
+        individual_tests = individual_tests.filter(
+            Q(name__icontains=query) |
+            Q(short_description__icontains=query) |
+            Q(long_description__icontains=query) |
+            Q(sample_type__icontains=query) |
+            Q(category__name__icontains=query)
+        ).distinct()
+        
+        packages = packages.filter(
+            Q(name__icontains=query) |
+            Q(description__icontains=query)
+        ).distinct()
+    
+    individual_tests = individual_tests.order_by('name')
+    packages = packages.order_by('name')
     
     context = {
         'individual_tests': individual_tests,
         'packages': packages,
-        'page_title': 'All Available Tests',
+        'page_title': f'Search Results for "{query}"' if query else 'All Available Tests',
+        'query': query,
     }
     
     return render(request, 'tests/test_list.html', context)

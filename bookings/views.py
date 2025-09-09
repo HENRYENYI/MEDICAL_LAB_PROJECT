@@ -7,7 +7,7 @@ import logging
 from tests.models import LabTest, TestPackage
 from .models import Booking
 from .cart import Cart
-from .forms import AnonymousBookingForm
+from .forms import AnonymousBookingForm, ResultTrackingForm
 
 logger = logging.getLogger(__name__)
 
@@ -58,6 +58,7 @@ def checkout_view(request):
                 else:
                     booking_data['age'] = form.cleaned_data['age']
                     booking_data['gender'] = form.cleaned_data['gender']
+                    booking_data['phone'] = form.cleaned_data.get('phone', '')
                 
                 booking = Booking.objects.create(**booking_data)
                 logger.info(f"Booking created: {booking.booking_code}")
@@ -104,18 +105,27 @@ def booking_success(request, booking_code):
 
 
 def check_result_view(request):
+    """View for users to check their test results using access code"""
+    booking = None
+    error_message = None
+    
     if request.method == 'POST':
-        code = request.POST.get('booking_code', '').strip().upper()
-        if code:
-            # Check if a booking with this code exists
-            booking = Booking.objects.filter(booking_code=code).first()
-            if booking:
-                return redirect('bookings:result_detail', booking_code=booking.booking_code)
-        
-        # If code is not found or empty, render the page again with an error
-        return render(request, 'bookings/check_result.html', {'error': 'Invalid booking code.'})
-
-    return render(request, 'bookings/check_result.html')
+        form = ResultTrackingForm(request.POST)
+        if form.is_valid():
+            access_code = form.cleaned_data['access_code']
+            try:
+                booking = Booking.objects.get(access_code=access_code)
+            except Booking.DoesNotExist:
+                error_message = "Invalid access code. Please check and try again."
+    else:
+        form = ResultTrackingForm()
+    
+    context = {
+        'form': form,
+        'booking': booking,
+        'error_message': error_message,
+    }
+    return render(request, 'bookings/check_result.html', context)
 
 
 def result_detail_view(request, booking_code):
@@ -124,3 +134,12 @@ def result_detail_view(request, booking_code):
         'booking': booking,
     }
     return render(request, 'bookings/result_detail.html', context)
+
+def hospital_access_view(request, booking_code):
+    """View for hospital workers to access patient basic info"""
+    booking = get_object_or_404(Booking, booking_code=booking_code)
+    
+    context = {
+        'booking': booking,
+    }
+    return render(request, 'bookings/hospital_access.html', context)

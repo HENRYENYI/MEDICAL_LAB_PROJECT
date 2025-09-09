@@ -52,6 +52,7 @@ class Booking(models.Model):
     
     # Unique code for BOTH anonymous and registered users
     booking_code = models.CharField(max_length=10, unique=True, blank=True)
+    access_code = models.CharField(max_length=12, blank=True)  # For result tracking
     
     # For registered users (can be blank for anonymous)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
@@ -59,6 +60,7 @@ class Booking(models.Model):
     # For anonymous users
     age = models.PositiveIntegerField(null=True, blank=True)
     gender = models.CharField(max_length=10, choices=[('Male', 'Male'), ('Female', 'Female')], null=True, blank=True)
+    phone = models.CharField(max_length=20, null=True, blank=True)
     
     # The test(s) being booked
     tests = models.ManyToManyField(LabTest, blank=True)
@@ -77,6 +79,9 @@ class Booking(models.Model):
         if not self.booking_code:
             # Generate a simple, human-readable unique code
             self.booking_code = str(uuid.uuid4().hex[:8]).upper()
+        if not self.access_code:
+            # Generate access code for result tracking
+            self.access_code = str(uuid.uuid4().hex[:12]).upper()
         super().save(*args, **kwargs)
 
     def __str__(self):

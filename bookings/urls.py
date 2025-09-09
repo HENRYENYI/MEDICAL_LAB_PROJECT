@@ -15,4 +15,5 @@ urlpatterns = [
     # Result Checking
     path('check-result/', views.check_result_view, name='check_result'),
     path('result/<str:booking_code>/', views.result_detail_view, name='result_detail'),
+    path('hospital/<str:booking_code>/', views.hospital_access_view, name='hospital_access'),
 ]

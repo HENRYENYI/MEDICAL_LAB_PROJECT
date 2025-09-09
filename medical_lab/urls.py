@@ -17,6 +17,8 @@ urlpatterns = [
     path('booking/', include('bookings.urls')),
     path('consultation/', include('consultation.urls')), 
     path('accounts/', include('users.urls')),
+    path('ai-doctor/', include('ai_doctor.urls')),
+    path('blog/', include('blog.urls')),
     
     # Django Admin URL
     path('admin/', admin.site.urls),

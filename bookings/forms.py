@@ -13,12 +13,18 @@ class AnonymousBookingForm(forms.Form):
     age = forms.IntegerField(
         min_value=1, 
         label="Your Age",
-        widget=forms.NumberInput(attrs={'class': 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-main focus:ring-primary-main'})
+        widget=forms.NumberInput(attrs={'class': 'mt-1 block w-full rounded-md border-primary-300 shadow-sm focus:border-primary-500 focus:ring-primary-500'})
     )
     gender = forms.ChoiceField(
         choices=GENDER_CHOICES, 
         label="Gender",
-        widget=forms.Select(attrs={'class': 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-main focus:ring-primary-main'})
+        widget=forms.Select(attrs={'class': 'mt-1 block w-full rounded-md border-primary-300 shadow-sm focus:border-primary-500 focus:ring-primary-500'})
+    )
+    phone = forms.CharField(
+        max_length=20,
+        label="Phone Number (Optional)",
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'mt-1 block w-full rounded-md border-primary-300 shadow-sm focus:border-primary-500 focus:ring-primary-500', 'placeholder': '+234 xxx xxx xxxx'})
     )
 
 class HealthProfileForm(forms.ModelForm):
@@ -49,3 +55,20 @@ class DoctorAccessForm(forms.Form):
         initial=30,
         widget=forms.Select(attrs={'class': 'mt-1 block w-full rounded-md border-gray-300'})
     )
+
+class ResultTrackingForm(forms.Form):
+    access_code = forms.CharField(
+        max_length=12,
+        label="Enter Your Access Code",
+        widget=forms.TextInput(attrs={
+            'class': 'mt-1 block w-full rounded-md border-primary-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-center text-lg font-mono uppercase',
+            'placeholder': 'XXXXXXXXXXXX',
+            'style': 'letter-spacing: 2px;'
+        })
+    )
+    
+    def clean_access_code(self):
+        code = self.cleaned_data['access_code'].upper().strip()
+        if len(code) != 12:
+            raise forms.ValidationError("Access code must be 12 characters long.")
+        return code

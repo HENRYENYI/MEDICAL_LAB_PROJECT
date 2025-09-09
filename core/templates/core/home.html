@@ -10,17 +10,47 @@
 
 
 
-<section class="relative bg-gray-50">
+<section class="relative bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 overflow-hidden">
     <div class="absolute inset-0">
-        <img src="{% static 'images/core/images/doctor-hero.jpeg' %}" alt="Hero Doctor Image" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-primary-dark opacity-50"></div>
+        <img src="{% static 'images/core/images/doctor-hero.jpeg' %}" alt="Hero Doctor Image" class="w-full h-full object-cover opacity-60">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary-900/30 via-primary-800/20 to-primary-700/10"></div>
     </div>
-    <div class="relative container mx-auto px-6 py-24 md:py-32 lg:py-48 text-center text-white">
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight">Your Health, <br> Your Terms</h1>
-        <p class="mt-4 text-lg md:text-xl max-w-2xl mx-auto">Get tested, get informed, stay empowered.</p>
-        <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="{% url 'tests:test_list' %}" class="w-full sm:w-auto bg-primary-button hover:bg-purple-800 text-white font-semibold py-3 px-8 rounded-full transition duration-300">Shop all tests</a>
-            <a href="#" class="w-full sm:w-auto bg-transparent border-2 border-white text-white font-semibold py-3 px-8 rounded-full hover:bg-white hover:text-primary-main transition duration-300">Ask Our Ai Doctor</a>
+    <!-- Decorative elements -->
+    <div class="absolute top-0 left-0 w-full h-full">
+        <div class="absolute top-20 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
+        <div class="absolute bottom-20 right-10 w-48 h-48 bg-accent-500/20 rounded-full blur-2xl"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary-400/10 rounded-full blur-3xl"></div>
+    </div>
+    <div class="relative container mx-auto px-4 sm:px-6 py-20 sm:py-28 md:py-36 lg:py-52 text-center text-white">
+        <div class="animate-fade-in">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6">
+                <span class="bg-gradient-to-r from-white via-primary-100 to-white bg-clip-text text-transparent">
+                    Your Health,
+                </span>
+                <br class="hidden sm:block">
+                <span class="bg-gradient-to-r from-accent-200 via-white to-accent-200 bg-clip-text text-transparent">
+                    Your Terms
+                </span>
+            </h1>
+            <p class="mt-6 text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto px-4 text-primary-100 leading-relaxed">Get tested, get informed, stay empowered with our advanced healthcare solutions.</p>
+            <div class="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 px-4">
+                <a href="{% url 'tests:test_list' %}" class="group w-full sm:w-auto bg-white text-primary-700 hover:bg-primary-50 font-bold py-4 px-8 sm:px-10 rounded-full transition-all duration-300 text-base sm:text-lg shadow-strong hover:shadow-medium hover:scale-105">
+                    <span class="flex items-center justify-center">
+                        Shop All Tests
+                        <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </span>
+                </a>
+                <a href="{% url 'ai_doctor:home' %}" class="group w-full sm:w-auto glass-effect text-white hover:bg-white/30 font-bold py-4 px-8 sm:px-10 rounded-full transition-all duration-300 text-base sm:text-lg border border-white/30 hover:border-white/50 hover:scale-105">
+                    <span class="flex items-center justify-center">
+                        <svg class="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                        Ask Our AI Doctor
+                    </span>
+                </a>
+            </div>
         </div>
     </div>
 </section>
@@ -28,81 +58,135 @@
 
 
 <!-- ======== FEATURES SECTION ======== -->
-<section class="py-16 lg:py-24 bg-white">
-    <div class="container mx-auto px-6 lg:px-8">
-        <p class="text-center text-gray-600 text-lg lg:text-xl max-w-4xl mx-auto">
-            Neomed Healthcare Limited is a licensed medical diagnostics company delivering safe, secure, and private testing experiences for individuals and organizations. Powered by AI-driven support, certified laboratories, and optional anonymity, we are redefining the future of diagnostics with precision and trust.
-        </p>
-        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+<section class="py-16 sm:py-20 lg:py-28 bg-gradient-to-b from-secondary-50 to-white relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute inset-0">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-200 to-transparent"></div>
+        <div class="absolute -top-24 -right-24 w-48 h-48 bg-primary-100 rounded-full blur-3xl opacity-60"></div>
+        <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-accent-100 rounded-full blur-3xl opacity-60"></div>
+    </div>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="text-center mb-12 sm:mb-16">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary-900 mb-6">Why Choose NeoMed?</h2>
+            <p class="text-secondary-600 text-base sm:text-lg lg:text-xl max-w-4xl mx-auto leading-relaxed">
+                Neomed Healthcare Limited is a licensed medical diagnostics company delivering safe, secure, and private testing experiences for individuals and organizations. Powered by AI-driven support, certified laboratories, and optional anonymity, we are redefining the future of diagnostics with precision and trust.
+            </p>
+        </div>
+        <div class="mt-8 sm:mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 max-w-6xl mx-auto">
             <!-- Shop by Package Card -->
-            <div class="bg-white border border-gray-200 rounded-2xl p-8 text-center">
-                <div class="flex justify-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                    </svg>
+            <div class="group bg-white border border-primary-100 rounded-2xl sm:rounded-3xl p-8 sm:p-10 text-center shadow-soft hover:shadow-strong transition-all duration-500 hover-lift hover:border-primary-200">
+                <div class="flex justify-center mb-6">
+                    <div class="p-4 bg-gradient-to-br from-primary-100 to-primary-200 rounded-2xl group-hover:from-primary-200 group-hover:to-primary-300 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 sm:h-12 sm:w-12 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                        </svg>
+                    </div>
                 </div>
-                <h3 class="text-2xl font-bold text-gray-800">Shop by Package</h3>
-                <p class="mt-2 text-gray-600">Choose from expert-curated test bundles designed to target specific health needs.</p>
-                <a href="#" class="mt-6 inline-block bg-primary-main hover:bg-purple-900 text-white font-semibold py-3 px-8 rounded-full transition duration-300">Shop by category</a>
+                <h3 class="text-2xl sm:text-3xl font-bold text-secondary-900 mb-4">Shop by Package</h3>
+                <p class="text-secondary-600 text-base sm:text-lg leading-relaxed mb-6">Choose from expert-curated test bundles designed to target specific health needs and get comprehensive insights.</p>
+                <a href="{% url 'tests:category_list' %}" class="inline-flex items-center bg-gradient-primary text-white font-bold py-3 sm:py-4 px-8 sm:px-10 rounded-full hover:shadow-medium transition-all duration-300 text-sm sm:text-base group-hover:scale-105">
+                    Shop by Category
+                    <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                </a>
             </div>
             
             <!-- Anonymous Testing Card -->
-            <div class="bg-primary-main rounded-2xl p-8 text-center text-white">
-                 <div class="flex justify-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
+            <div class="group bg-gradient-to-br from-accent-500 via-accent-600 to-accent-700 rounded-2xl sm:rounded-3xl p-8 sm:p-10 text-center text-white shadow-strong hover:shadow-medium transition-all duration-500 hover-lift relative overflow-hidden">
+                <!-- Background decoration -->
+                <div class="absolute inset-0">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                    <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
                 </div>
-                <h3 class="text-2xl font-bold">Anonymous STI & HIV Testing</h3>
-                <p class="mt-2">Discreet and confidential testing for sensitive health concerns. No names, No judgement.</p>
-                <a href="{% url 'tests:anonymous_test_list' %}" class="text-gray-600 hover:text-primary-main">Anonymous Test</a>
+                <div class="relative">
+                    <div class="flex justify-center mb-6">
+                        <div class="p-4 bg-white/20 backdrop-blur-sm rounded-2xl group-hover:bg-white/30 transition-all duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 sm:h-12 sm:w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-bold mb-4">Anonymous STI & HIV Testing</h3>
+                    <p class="text-accent-100 text-base sm:text-lg leading-relaxed mb-6">Discreet and confidential testing for sensitive health concerns. Complete privacy guaranteed with no personal information required.</p>
+                    <a href="{% url 'tests:anonymous_test_list' %}" class="inline-flex items-center bg-white text-accent-600 font-bold py-3 sm:py-4 px-8 sm:px-10 rounded-full hover:bg-accent-50 transition-all duration-300 text-sm sm:text-base group-hover:scale-105 shadow-medium">
+                        <svg class="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                        Anonymous Tests
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- ======== SHOP BY CATEGORY SECTION ======== -->
-<section class="bg-primary-dark text-white py-16 lg:py-24">
-    <div class="container mx-auto px-6 lg:px-8">
-        <div class="text-center mb-10">
-            <a href="{% url 'tests:test_list' %}" class="bg-white text-primary-main font-semibold py-3 px-8 rounded-full hover:bg-gray-200 transition duration-300">Shop all test</a>
+<section class="bg-gradient-to-br from-secondary-800 via-secondary-900 to-secondary-900 text-white py-16 sm:py-20 lg:py-28 relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute inset-0">
+        <div class="absolute top-0 left-1/4 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-48 h-48 bg-accent-500/10 rounded-full blur-2xl"></div>
+        <div class="absolute top-1/2 left-0 w-32 h-32 bg-primary-400/5 rounded-full blur-xl"></div>
+    </div>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="text-center mb-12 sm:mb-16">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-primary-200 to-white bg-clip-text text-transparent">Explore Test Categories</h2>
+            <p class="text-secondary-300 text-lg sm:text-xl mb-8 max-w-2xl mx-auto">Browse our comprehensive range of medical tests organized by specialty</p>
+            <a href="{% url 'tests:test_list' %}" class="inline-flex items-center bg-gradient-primary text-white font-bold py-3 sm:py-4 px-8 sm:px-10 rounded-full hover:shadow-strong transition-all duration-300 text-sm sm:text-base hover:scale-105">
+                <svg class="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                </svg>
+                Shop All Tests
+            </a>
         </div>
         
         <!-- Horizontal Scrolling Container -->
-        <div class="flex space-x-6 overflow-x-auto pb-4 -mx-6 px-6 no-scrollbar">
+        <div class="flex space-x-4 sm:space-x-6 overflow-x-auto pb-4 -mx-4 sm:-mx-6 px-4 sm:px-6 no-scrollbar">
             {% for category in categories %}
-            <div class="flex-shrink-0 w-48 text-center group">
-                <a href="#">
-                    {% if category.image %}
-                    <img class="h-32 w-32 rounded-full object-cover mx-auto border-4 border-transparent group-hover:border-white transition-all duration-300" src="{{ category.image.url }}" alt="{{ category.name }}">
-                    {% else %}
-                    <div class="h-32 w-32 rounded-full bg-primary-main flex items-center justify-center mx-auto border-4 border-transparent group-hover:border-white transition-all duration-300">
-                        <span class="text-white text-center font-semibold">{{ category.name }}</span>
+            <div class="flex-shrink-0 w-40 sm:w-52 text-center group">
+                <a href="{% url 'tests:category_detail' category.pk %}" class="block">
+                    <div class="relative">
+                        {% if category.image %}
+                        <img class="h-28 w-28 sm:h-36 sm:w-36 rounded-2xl object-cover mx-auto border-4 border-white/20 group-hover:border-primary-400 transition-all duration-500 shadow-medium group-hover:shadow-strong group-hover:scale-105" src="{{ category.image.url }}" alt="{{ category.name }}">
+                        {% else %}
+                        <div class="h-28 w-28 sm:h-36 sm:w-36 rounded-2xl bg-gradient-to-br from-primary-400 via-primary-500 to-primary-600 flex items-center justify-center mx-auto border-4 border-white/20 group-hover:border-primary-400 transition-all duration-500 shadow-medium group-hover:shadow-strong group-hover:scale-105">
+                            <span class="text-white text-center font-bold text-xs sm:text-sm px-3 leading-tight">{{ category.name }}</span>
+                        </div>
+                        {% endif %}
+                        <!-- Hover overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary-600/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
-                    {% endif %}
-                    <h3 class="mt-4 font-semibold text-lg">{{ category.name }}</h3>
-                    <p class="text-sm text-gray-300 group-hover:underline">View tests</p>
+                    <h3 class="mt-4 sm:mt-5 font-bold text-sm sm:text-lg line-clamp-2 text-white group-hover:text-primary-200 transition-colors duration-300">{{ category.name }}</h3>
+                    <p class="text-xs sm:text-sm text-secondary-400 group-hover:text-primary-300 transition-colors duration-300 flex items-center justify-center mt-1">
+                        <span>View tests</span>
+                        <svg class="ml-1 w-3 h-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </p>
                 </a>
             </div>
             {% empty %}
-            <p class="w-full text-center text-gray-400">No test categories are available at the moment.</p>
+            <div class="w-full text-center py-12">
+                <p class="text-secondary-400 text-base sm:text-lg">No test categories are available at the moment.</p>
+            </div>
             {% endfor %}
         </div>
     </div>
 </section>
 
 <!-- ======== HOW-TO VIDEO SECTION ======== -->
-<section class="py-16 lg:py-24 bg-white">
-    <div class="container mx-auto px-6 lg:px-8 text-center">
-        <h2 class="text-3xl lg:text-4xl font-bold text-gray-800">Need Help Navigating the Website?</h2>
-        <p class="mt-4 text-gray-600 max-w-3xl mx-auto">If you're unsure how things work, this step-by-step video guide will walk you through everything — from booking your test to receiving your results securely.</p>
+<section class="py-12 sm:py-16 lg:py-24 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800">Need Help Navigating the Website?</h2>
+        <p class="mt-4 text-sm sm:text-base text-gray-600 max-w-3xl mx-auto leading-relaxed">If you're unsure how things work, this step-by-step video guide will walk you through everything — from booking your test to receiving your results securely.</p>
         
-        <div class="mt-10 max-w-4xl mx-auto rounded-xl shadow-2xl overflow-hidden">
+        <div class="mt-8 sm:mt-10 max-w-4xl mx-auto rounded-lg sm:rounded-xl shadow-lg sm:shadow-2xl overflow-hidden">
             <div class="relative aspect-video bg-gray-900">
                 <img src="https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Video thumbnail of a person using a phone" class="w-full h-full object-cover opacity-80">
                 <div class="absolute inset-0 flex items-center justify-center">
-                    <button class="bg-white/30 backdrop-blur-sm p-4 rounded-full hover:scale-110 transition-transform">
-                       <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-white" viewBox="0 0 20 20" fill="currentColor">
+                    <button class="bg-white/30 backdrop-blur-sm p-3 sm:p-4 rounded-full hover:scale-110 transition-transform">
+                       <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 sm:h-16 sm:w-16 text-white" viewBox="0 0 20 20" fill="currentColor">
                           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
                         </svg>
                     </button>
@@ -113,57 +197,57 @@
 </section>
 
 <!-- ======== AVAILABLE TESTS SECTION ======== -->
-<section class="py-16 lg:py-24 bg-gray-50">
-    <div class="container mx-auto px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-800">Available Lab Tests</h2>
-            <p class="mt-4 text-gray-600 max-w-3xl mx-auto">Explore our comprehensive range of laboratory tests designed to help you monitor and maintain your health.</p>
+<section class="py-12 sm:py-16 lg:py-24 bg-gray-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8 sm:mb-12">
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800">Available Lab Tests</h2>
+            <p class="mt-4 text-sm sm:text-base text-gray-600 max-w-3xl mx-auto leading-relaxed">Explore our comprehensive range of laboratory tests designed to help you monitor and maintain your health.</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {% for test in all_tests|slice:":10" %}
-            <div class="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 p-6">
+            <div class="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 p-4 sm:p-6">
                 <div class="flex items-start justify-between mb-3">
-                    <h3 class="text-lg font-semibold text-gray-800 line-clamp-2">{{ test.name }}</h3>
+                    <h3 class="text-sm sm:text-lg font-semibold text-gray-800 line-clamp-2 flex-1 pr-2">{{ test.name }}</h3>
                     {% if test.is_best_seller %}
-                    <span class="bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded-full">Best Seller</span>
+                    <span class="bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded-full flex-shrink-0">Best</span>
                     {% endif %}
                 </div>
                 
-                <p class="text-gray-600 text-sm mb-4 line-clamp-3">{{ test.short_description|default:"Professional lab test for accurate health assessment." }}</p>
+                <p class="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-3">{{ test.short_description|default:"Professional lab test for accurate health assessment." }}</p>
                 
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-2xl font-bold text-primary-main">₦{{ test.price|floatformat:0 }}</span>
+                <div class="flex items-center justify-between mb-3 sm:mb-4">
+                    <span class="text-lg sm:text-2xl font-bold text-primary-main">₦{{ test.price|floatformat:0 }}</span>
                     {% if test.category %}
-                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">{{ test.category.name }}</span>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded truncate max-w-20 sm:max-w-none">{{ test.category.name }}</span>
                     {% endif %}
                 </div>
                 
-                <div class="flex space-x-2">
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                     <a href="{% url 'tests:test_detail' test.pk %}" 
-                       class="flex-1 text-center bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-full text-sm transition duration-300">
-                        View Details
+                       class="flex-1 text-center bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-2 px-3 sm:px-4 rounded-full text-xs sm:text-sm transition duration-300">
+                        Details
                     </a>
                     <form method="post" action="{% url 'bookings:cart_add' 'test' test.id %}" class="flex-1">
                         {% csrf_token %}
                         <button type="submit" 
-                                class="w-full bg-primary-main hover:bg-purple-900 text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300">
+                                class="w-full bg-primary-main hover:bg-purple-900 text-white font-semibold py-2 px-3 sm:px-4 rounded-full text-xs sm:text-sm transition duration-300">
                             Add to Cart
                         </button>
                     </form>
                 </div>
             </div>
             {% empty %}
-            <div class="col-span-full text-center py-12">
-                <p class="text-gray-500 text-lg">No tests available at the moment.</p>
+            <div class="col-span-full text-center py-8 sm:py-12">
+                <p class="text-gray-500 text-base sm:text-lg">No tests available at the moment.</p>
             </div>
             {% endfor %}
         </div>
         
         {% if all_tests|length > 10 %}
-        <div class="text-center mt-12">
+        <div class="text-center mt-8 sm:mt-12">
             <a href="{% url 'tests:test_list' %}" 
-               class="inline-block bg-primary-main hover:bg-purple-900 text-white font-semibold py-3 px-8 rounded-full transition duration-300">
+               class="inline-block bg-primary-main hover:bg-purple-900 text-white font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-full transition duration-300 text-sm sm:text-base">
                 View All Available Tests
             </a>
         </div>

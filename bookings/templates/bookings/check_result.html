@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Check Test Results - NeoMed Healthcare{% endblock %}
+
+{% block content %}
+<div class="bg-gradient-to-br from-secondary-50 to-primary-50 py-12 lg:py-16">
+    <div class="container mx-auto max-w-3xl px-6 lg:px-8">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl lg:text-4xl font-extrabold text-secondary-900 mb-4">Check Your Test Results</h1>
+            <p class="text-secondary-600 text-lg">Enter your access code to view your test results and status</p>
+        </div>
+        
+        <div class="bg-white border border-primary-200 rounded-2xl shadow-soft p-8 lg:p-10">
+            {% if error_message %}
+                <div class="bg-error-50 border border-error-200 text-error-700 px-4 py-3 rounded-xl mb-6 flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                    </svg>
+                    {{ error_message }}
+                </div>
+            {% endif %}
+            
+            {% if not booking %}
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                <div>
+                    <label for="id_access_code" class="block text-sm font-medium text-secondary-700 mb-3">Access Code</label>
+                    {{ form.access_code }}
+                    <p class="text-xs text-secondary-500 mt-2">Enter the 12-character access code you received after booking</p>
+                    {% if form.access_code.errors %}
+                        <div class="text-error-600 text-sm mt-1">{{ form.access_code.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-gradient-primary text-white font-bold py-4 px-6 rounded-xl hover:shadow-medium transition-all duration-300 text-lg">
+                    <span class="flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        Check Results
+                    </span>
+                </button>
+            </form>
+            {% else %}
+            <!-- Display booking results -->
+            <div class="space-y-6">
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-success-100 rounded-full mb-4">
+                        <svg class="w-8 h-8 text-success-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-secondary-900">Test Results Found</h2>
+                </div>
+                
+                <div class="bg-secondary-50 rounded-xl p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm text-secondary-600">Booking Code</p>
+                            <p class="font-mono text-lg font-bold text-secondary-900">{{ booking.booking_code }}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-secondary-600">Status</p>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                                {% if booking.status == 'COMPLETED' %}bg-success-100 text-success-800
+                                {% elif booking.status == 'PAID' %}bg-warning-100 text-warning-800
+                                {% elif booking.status == 'SAMPLE_COLLECTED' %}bg-primary-100 text-primary-800
+                                {% else %}bg-secondary-100 text-secondary-800{% endif %}">
+                                {{ booking.get_status_display }}
+                            </span>
+                        </div>
+                        <div>
+                            <p class="text-sm text-secondary-600">Booking Date</p>
+                            <p class="font-semibold text-secondary-900">{{ booking.created_at|date:"M d, Y" }}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-secondary-600">Total Amount</p>
+                            <p class="font-semibold text-secondary-900">₦{{ booking.total_price|floatformat:0 }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-primary-50 rounded-xl p-6">
+                    <h3 class="font-bold text-primary-900 mb-3">Tests Booked</h3>
+                    <ul class="space-y-2">
+                        {% for test in booking.tests.all %}
+                        <li class="flex items-center text-primary-800">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            {{ test.name }}
+                        </li>
+                        {% endfor %}
+                        {% if booking.package %}
+                        <li class="flex items-center text-primary-800">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            {{ booking.package.name }} (Package)
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                
+                {% if booking.status == 'COMPLETED' and booking.result_file %}
+                <div class="bg-success-50 rounded-xl p-6 text-center">
+                    <svg class="w-12 h-12 text-success-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <h3 class="text-lg font-bold text-success-900 mb-2">Results Ready!</h3>
+                    <p class="text-success-700 mb-4">Your test results are now available for download.</p>
+                    <a href="{{ booking.result_file.url }}" 
+                       class="inline-flex items-center bg-success-600 hover:bg-success-700 text-white font-bold py-3 px-6 rounded-xl transition-colors duration-300"
+                       download>
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Download Results
+                    </a>
+                </div>
+                {% else %}
+                <div class="bg-warning-50 rounded-xl p-6 text-center">
+                    <svg class="w-12 h-12 text-warning-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <h3 class="text-lg font-bold text-warning-900 mb-2">Results Pending</h3>
+                    <p class="text-warning-700">Your test results are not yet ready. Please check back later or contact us if you have any questions.</p>
+                </div>
+                {% endif %}
+                
+                <div class="text-center">
+                    <a href="{% url 'bookings:check_result' %}" 
+                       class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Check Another Result
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

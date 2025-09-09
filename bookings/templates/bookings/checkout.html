@@ -66,6 +66,13 @@
                                         <div class="text-red-600 text-sm mt-1">{{ form.gender.errors.0 }}</div>
                                     {% endif %}
                                 </div>
+                                <div>
+                                    <label for="id_phone" class="block text-sm font-medium text-gray-700">Phone Number (Optional)</label>
+                                    {{ form.phone }}
+                                    {% if form.phone.errors %}
+                                        <div class="text-red-600 text-sm mt-1">{{ form.phone.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
