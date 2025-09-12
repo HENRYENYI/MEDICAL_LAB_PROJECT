@@ -88,7 +88,7 @@
         </div>
         <div class="mt-8 sm:mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 max-w-6xl mx-auto">
             <!-- Shop by Package Card -->
-            <div class="group bg-white/80 backdrop-blur-sm border border-primary-200/50 rounded-3xl p-8 sm:p-10 text-center shadow-soft hover:shadow-strong transition-all duration-500 hover-lift hover:border-primary-300 card-hover animate-scale-in">
+            <div class="group bg-white border-2 border-primary-300 rounded-3xl p-8 sm:p-10 text-center shadow-lg hover:shadow-2xl transition-all duration-500 hover-lift hover:border-primary-500 hover:bg-primary-50 animate-scale-in">
                 <div class="flex justify-center mb-6">
                     <div class="relative p-4 bg-gradient-to-br from-primary-100 to-primary-200 rounded-2xl group-hover:from-primary-200 group-hover:to-primary-300 transition-all duration-300 hover-glow">
                         <div class="absolute inset-0 bg-gradient-radial from-white/20 to-transparent rounded-2xl"></div>
@@ -111,7 +111,7 @@
             </div>
             
             <!-- Anonymous Testing Card -->
-            <div class="group bg-gradient-to-br from-accent-500 via-accent-600 to-accent-700 rounded-3xl p-8 sm:p-10 text-center text-white shadow-strong hover:shadow-glow-accent transition-all duration-500 hover-lift relative overflow-hidden animate-scale-in" style="animation-delay: 0.2s;">
+            <div class="group bg-gradient-to-br from-red-600 via-red-700 to-red-800 border-2 border-red-500 rounded-3xl p-8 sm:p-10 text-center text-white shadow-lg hover:shadow-2xl transition-all duration-500 hover-lift hover:border-red-400 relative overflow-hidden animate-scale-in" style="animation-delay: 0.2s;">
                 <!-- Enhanced background decoration -->
                 <div class="absolute inset-0">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-pulse-slow"></div>
@@ -168,9 +168,9 @@
                 <a href="{% url 'tests:category_detail' category.pk %}" class="block">
                     <div class="relative">
                         {% if category.image %}
-                        <img class="h-28 w-28 sm:h-36 sm:w-36 rounded-2xl object-cover mx-auto border-4 border-white/20 group-hover:border-primary-400 transition-all duration-500 shadow-medium group-hover:shadow-strong group-hover:scale-105" src="{{ category.image.url }}" alt="{{ category.name }}">
+                        <img class="h-28 w-28 sm:h-36 sm:w-36 rounded-2xl object-cover mx-auto border-4 border-white group-hover:border-primary-300 transition-all duration-500 shadow-lg group-hover:shadow-xl group-hover:scale-105" src="{{ category.image.url }}" alt="{{ category.name }}">
                         {% else %}
-                        <div class="h-28 w-28 sm:h-36 sm:w-36 rounded-2xl bg-gradient-to-br from-primary-400 via-primary-500 to-primary-600 flex items-center justify-center mx-auto border-4 border-white/20 group-hover:border-primary-400 transition-all duration-500 shadow-medium group-hover:shadow-strong group-hover:scale-105">
+                        <div class="h-28 w-28 sm:h-36 sm:w-36 rounded-2xl bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 flex items-center justify-center mx-auto border-4 border-white group-hover:border-primary-300 transition-all duration-500 shadow-lg group-hover:shadow-xl group-hover:scale-105">
                             <span class="text-white text-center font-bold text-xs sm:text-sm px-3 leading-tight">{{ category.name }}</span>
                         </div>
                         {% endif %}
@@ -238,7 +238,7 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
             {% for article in featured_articles %}
-            <article class="group bg-white/80 backdrop-blur-sm border border-white/50 rounded-2xl sm:rounded-3xl shadow-soft hover:shadow-strong transition-all duration-500 overflow-hidden hover-lift animate-scale-in" style="animation-delay: {{ forloop.counter0|add:1|floatformat:1 }}s;">
+            <article class="group bg-white border-2 border-gray-200 rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl hover:border-primary-400 transition-all duration-500 overflow-hidden hover-lift hover:bg-gray-50 animate-scale-in" style="animation-delay: {{ forloop.counter0|add:1|floatformat:1 }}s;">
                 {% if article.featured_image %}
                 <div class="aspect-video overflow-hidden">
                     <img src="{{ article.featured_image.url }}" alt="{{ article.title }}" 
@@ -312,7 +312,7 @@
         
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {% for test in all_tests|slice:":10" %}
-            <div class="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 p-4 sm:p-6">
+            <div class="bg-white border-2 border-gray-300 rounded-xl shadow-md hover:shadow-xl hover:border-primary-400 hover:bg-primary-50 transition-all duration-300 p-4 sm:p-6">
                 <div class="flex items-start justify-between mb-3">
                     <h3 class="text-sm sm:text-lg font-semibold text-gray-800 line-clamp-2 flex-1 pr-2">{{ test.name }}</h3>
                     {% if test.is_best_seller %}
